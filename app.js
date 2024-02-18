@@ -2,21 +2,25 @@ const express = require("express");
 const app = express();
 const taskRouter = require("./routes/tasks");
 const connectDB = require("./db/connect");
-require('dotenv').config()
+require("dotenv").config();
+const notFound = require("./middlewares/notFound");
+const errorHandler = require("./middlewares/errorHandler");
 app.use(express.json());
 
 app.use("/api/v1/tasks", taskRouter);
-const PORT = 3000;
+app.use(notFound);
+app.use(errorHandler);
+
 
 
 const start = async () => {
   try {
     await connectDB(process.env.DB_LINK);
-    app.listen(PORT, () => {
-      console.log("Listining on port " + PORT);
+    app.listen(process.env.PORT??3000, () => {
+      console.log("Listining on port " + process.env.PORT??3000);
     });
   } catch (error) {
     console.log(error);
   }
 };
-start()
+start();
