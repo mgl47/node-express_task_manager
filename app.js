@@ -16,8 +16,8 @@ app.use(errorHandler);
 const start = async () => {
   try {
     await connectDB(process.env.DB_LINK);
-    app.listen(process.env.PORT??3000, () => {
-      console.log("Listining on port " + process.env.PORT??3000);
+    app.listen(process.env.PORT||3000, () => {
+      console.log("Listining on port " + process.env.PORT||3000);
     });
   } catch (error) {
     console.log(error);
